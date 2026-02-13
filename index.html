@@ -120,9 +120,9 @@ button {
 <div class="main-wrapper">
   <!-- Special Love Note -->
   <div class="love-note">
-    <div class="love-note-title">My love Ani!💕</div>
+    <div class="love-note-title">My love Ani</div>
     <div class="love-note-subtitle">I'm so lucky to have you</div>
-    <div class="love-note-text">I couldn’t ask you to be my Valentine in person since I’m sick, so I made this page just for you.</div>
+    <div class="love-note-text">I couldn’t ask you to be my Valentine in person since I’m sick, so I made this Valentine just for you.</div>
   </div>
 
   <!-- Rectangle Container -->
@@ -157,8 +157,11 @@ noBtn.addEventListener('click', () => {
   msgIndex = (msgIndex + 1) % flirtyMessages.length;
 });
 
-// --- Yes button hearts ---
+// --- Yes button hearts + sound ---
 const yesBtn = document.getElementById('yesBtn');
+
+// Load audio
+const loveSound = new Audio('love-sound.mp3'); // <-- drop your MP3 file here
 
 function createHeart() {
   const heart = document.createElement('div');
@@ -172,6 +175,10 @@ function createHeart() {
 }
 
 yesBtn.addEventListener('click', ()=>{
+  // Play sound
+  loveSound.play();
+
+  // Change page content
   document.body.innerHTML = `
   <div style="text-align:center;color:#d83f87;padding:50px;font-size:1.5em;">
     <h1>Ayoooo!!! 💕</h1>

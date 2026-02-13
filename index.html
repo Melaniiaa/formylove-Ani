@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Be my Valentine, Ser 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;900&display=swap" rel="stylesheet">
 <style>
 /* Animate live gradient background */
 @keyframes gradientBG {
@@ -15,7 +15,7 @@
 body {
   margin:0;
   height:100vh;
-  font-family:'Poppins', sans-serif;
+  font-family:'Archivo', sans-serif; /* Medium weight for body text */
   display:flex;
   justify-content:center;
   align-items:center;
@@ -54,7 +54,8 @@ body {
 
 /* Text */
 h1 {
-  font-family:'Pacifico', cursive;
+  font-family:'Archivo', sans-serif;
+  font-weight: 900; /* Bold */
   color:white;
   font-size:1.8em;
   margin-bottom:20px;
@@ -72,6 +73,8 @@ button {
   color:white;
   box-shadow:0 4px 15px rgba(0,0,0,0.3);
   transition:transform 0.3s ease;
+  font-family:'Archivo', sans-serif;
+  font-weight:500; /* Medium for button text */
 }
 #yesBtn { background: linear-gradient(45deg,#ff4d88,#ff85a2); }
 #yesBtn:hover { transform:scale(1.1); }
@@ -136,7 +139,7 @@ yesBtn.addEventListener('click', ()=>{
   document.body.innerHTML = `
   <div style="text-align:center;color:white;padding:50px;font-size:1.5em;">
     <h1>Ayoooo!!! 💕</h1>
-    <p>Ovaa amenaerjanik mardy himaaa??👀 💕 Yes😌✨💕</p>
+    <p>Ovaa amenaerjanik mardy himaaa??👀 💕 <br>Yes😌✨💕</p>
   </div>`;
   setInterval(createHeart, 250);
 });

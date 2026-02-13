@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Be my Valentine, Ani 💖</title>
+<title>Be my Valentine, Ser 💖</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 /* Animate live gradient background */
@@ -87,9 +87,9 @@ button {
 <body>
 
 <div class="container">
-  <h1 id="title">Will you be my Valentine, Ani? 💌</h1>
-  <button id="yesBtn">Yes ❤️</button>
-  <button id="noBtn">No 😢</button>
+  <h1 id="title">Will you be my Valentine, Seeer? 👀💕 </h1>
+  <button id="yesBtn">Yes!!💕</button>
+  <button id="noBtn">No :(</button>
 </div>
 
 <script>
@@ -97,7 +97,7 @@ button {
 function createFlyingHeart(){
   const heart = document.createElement('div');
   heart.className = 'flying-heart';
-  heart.textContent = '💖';
+  heart.textContent = '💕';
   heart.style.left = Math.random()*window.innerWidth + 'px';
   heart.style.top = window.innerHeight + 'px';
   heart.style.fontSize = (20+Math.random()*20) + 'px';
@@ -110,7 +110,7 @@ setInterval(createFlyingHeart, 400);
 const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 
-const flirtyMessages = ["Are you sure? 😏","Really?? 🥺","Think again 💕","You can't resist me 😌","Be nice 😇","Just say yes 😘"];
+const flirtyMessages = ["Vstah es?😏","Lurj?? 🥺","Noric mtacii!! 💕","Dzev chunes sers😌","De lav dee😇","ASA HA!😘"];
 let msgIndex = 0;
 
 noBtn.addEventListener('click', () => {
@@ -129,7 +129,7 @@ noBtn.addEventListener('click', () => {
 function createHeart() {
   const heart = document.createElement('div');
   heart.className = 'flying-heart';
-  heart.textContent = '💖';
+  heart.textContent = '💕';
   heart.style.left = Math.random() * window.innerWidth + 'px';
   heart.style.top = window.innerHeight + 'px';
   heart.style.fontSize = (20+Math.random()*20)+'px';
@@ -140,8 +140,8 @@ function createHeart() {
 yesBtn.addEventListener('click', ()=>{
   document.body.innerHTML = `
   <div style="text-align:center;color:white;padding:50px;font-size:1.5em;">
-    <h1>YAY!!! 💖</h1>
-    <p>You just made me the happiest person alive 🥹<br>I promise to make you smile and feel loved every day ✨💕</p>
+    <h1>Ayoooo!!! 💕</h1>
+    <p>Ovaa amenaerjanik mardy himaaa??👀 💕 br>Yes😌✨💕</p>
   </div>`;
   setInterval(createHeart, 250);
 });

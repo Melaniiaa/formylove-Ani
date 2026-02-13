@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Be my Valentine, Ser 💖</title>
+<title>Valentine Letter 💖</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
-/* Animate live gradient background */
+/* Animate gradient background */
 @keyframes gradientBG {
   0% { background-position:0% 50% }
   50% { background-position:100% 50% }
@@ -27,62 +27,51 @@ body {
   padding:10px;
 }
 
-/* Yes button pulse */
-#yesBtn {
-  animation: pulse 2s infinite ease-in-out;
-}
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.07); }
-  100% { transform: scale(1); }
-}
-
-/* Wrapper */
-.main-wrapper {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-/* Love note */
-.love-note {
-  text-align:center;
-  margin-bottom:30px;
-}
-.love-note-title {
-  font-weight:700;
-  font-size:2.2em;
-  color:#d83f87;
-  margin-bottom:8px;
-}
-.love-note-subtitle,
-.love-note-text {
-  font-weight:300;
-  font-size:1.2em;
-  color:#e07abf;
-  margin-bottom:6px;
-}
-
-/* Hearts + sparkles */
-.flying-heart, .sparkle {
+/* Flying hearts */
+.flying-heart {
   position:fixed;
   pointer-events:none;
   opacity:1;
 }
 
-/* Heart float */
+/* Heart float animation */
 @keyframes floatUp {
   0% { transform: translateY(0) rotate(0deg); opacity:1; }
   100% { transform: translateY(-600px) rotate(360deg); opacity:0; }
 }
 
-/* Sparkle fade */
-@keyframes sparkleFade {
-  0% { transform: scale(1); opacity:1; }
-  100% { transform: scale(1.6); opacity:0; }
+/* Letter Page */
+.letter-wrapper {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  cursor:pointer;
+}
+.letter-box {
+  width:300px;
+  height:200px;
+  background:rgba(255,255,255,0.4);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,0.2);
+  padding:20px;
+  transition: transform 0.4s ease;
+}
+.letter-box:hover {
+  transform: scale(1.05);
+}
+.letter-text {
+  font-weight:500;
+  font-size:1.2em;
+  color:#d83f87;
 }
 
-/* Container */
+/* Container (opened letter) */
 .container {
   width:350px;
   padding:30px;
@@ -114,34 +103,42 @@ button {
 }
 #noBtn { 
   background: linear-gradient(45deg,#ff2e63,#ff6b81); 
-  position:relative; /* stays in container */
+  position:relative; 
 }
-#yesBtn { background: linear-gradient(45deg,#ff4d88,#ff85a2); }
+#yesBtn { background: linear-gradient(45deg,#ff4d88,#ff85a2); animation: pulse 2s infinite ease-in-out; }
+
+/* Pulse for Yes */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.07); }
+  100% { transform: scale(1); }
+}
+
+/* Love note text */
+.love-note {
+  text-align:center;
+  margin-bottom:30px;
+}
+.love-note-title { font-weight:700; font-size:2.2em; color:#d83f87; margin-bottom:8px; }
+.love-note-subtitle, .love-note-text { font-weight:300; font-size:1.2em; color:#e07abf; margin-bottom:6px; }
 
 /* MOBILE ONLY STYLING */
-@media (max-width: 480px) {
-  .main-wrapper { width:90%; max-width:400px; }
+@media (max-width:480px){
   .container { width:90%; padding:20px; max-width:350px; }
   .love-note-title { font-size:1.6em; }
   .love-note-subtitle, .love-note-text { font-size:1em; }
   h1 { font-size:1.4em; }
   button { font-size:0.95em; padding:10px 20px; }
+  .letter-box { width:90%; height:auto; padding:15px; }
 }
 </style>
 </head>
 <body>
 
-<div class="main-wrapper">
-  <div class="love-note">
-    <div class="love-note-title">My love Ani!!💕</div>
-    <div class="love-note-subtitle">I'm so lucky to have you!👀</div>
-    <div class="love-note-text">I couldn’t ask you to be my Valentine in person since I’m sick, so I made this page just for you💖😌</div>
-  </div>
-
-  <div class="container">
-    <h1>Will you be my Valentine, Seeer? 👀💕</h1>
-    <button id="yesBtn">Yes!!💕</button>
-    <button id="noBtn">No :(</button>
+<!-- Letter Page -->
+<div class="letter-wrapper" id="letterPage">
+  <div class="letter-box">
+    <div class="letter-text">I have a serious question for you...💌<br>Click to open 💖</div>
   </div>
 </div>
 
@@ -161,45 +158,61 @@ function createFlyingHeart() {
 }
 setInterval(createFlyingHeart, 350);
 
-// Sparkle effect
-function createSparkle() {
-  const sparkle = document.createElement('div');
-  sparkle.className = 'sparkle';
-  sparkle.textContent = '✨';
-  sparkle.style.left = Math.random()*window.innerWidth + 'px';
-  sparkle.style.top = Math.random()*window.innerHeight + 'px';
-  sparkle.style.fontSize = (10 + Math.random()*20) + 'px';
-  sparkle.style.animation = 'sparkleFade 1.2s ease-out forwards';
-  document.body.appendChild(sparkle);
-  setTimeout(()=> sparkle.remove(), 1200);
-}
-
-// No button flirty messages
-const noBtn = document.getElementById('noBtn');
-const flirtyMessages = ["Vstah es?😏","Lurj?? 🥺","Noric mtacii!! 💕","Dzev chunes sers😌","De lav dee😇","ASA HA!😘"];
-let msgIndex = 0;
-noBtn.addEventListener('click', () => {
-  noBtn.textContent = flirtyMessages[msgIndex];
-  msgIndex = (msgIndex + 1) % flirtyMessages.length;
-});
-
-// Yes button
-const yesBtn = document.getElementById('yesBtn');
-const loveSound = new Audio('love-sound.mp3');
-
-yesBtn.addEventListener('click', ()=> {
-  loveSound.play();
-
-  // sparkles + hearts
-  for(let i=0; i<30; i++) setTimeout(createSparkle, i*80);
-
+// Click letter to open main page
+document.getElementById('letterPage').addEventListener('click', () => {
   document.body.innerHTML = `
-    <div style="text-align:center;padding:20px;color:#d83f87;font-size:1.5em;">
-      <img src="cat-flower.gif" style="max-width:220px; width:80%; height:auto; margin-bottom:20px;" alt="cute cat with flowers"> 
-      <h1>Yeeey!!Yeyy!Yeyyeyy😌💕</h1>
-      <p>Ovaa amenaerjanik mardy himaaa?? 👀 💕 <br>Yes 😌✨💕</p>
-    </div>`;
-  setInterval(createFlyingHeart, 300);
+    <div class="main-wrapper">
+      <div class="love-note">
+        <div class="love-note-title">My love Ani!!💕</div>
+        <div class="love-note-subtitle">I'm so lucky to have you!👀</div>
+        <div class="love-note-text">I couldn’t ask you to be my Valentine in person since I’m sick, so I made this page just for you💖😌</div>
+      </div>
+      <div class="container">
+        <h1>Will you be my Valentine, Seeer? 👀💕</h1>
+        <button id="yesBtn">Yes!!💕</button>
+        <button id="noBtn">No :(</button>
+      </div>
+    </div>
+  `;
+
+  // Re-add all JS behaviors for new page
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const loveSound = new Audio('love-sound.mp3');
+
+  // Hearts & sparkles on Yes click
+  function createSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.textContent = '✨';
+    sparkle.style.left = Math.random()*window.innerWidth + 'px';
+    sparkle.style.top = Math.random()*window.innerHeight + 'px';
+    sparkle.style.fontSize = (10 + Math.random()*20) + 'px';
+    sparkle.style.animation = 'floatUp 1.2s ease-out forwards';
+    document.body.appendChild(sparkle);
+    setTimeout(()=> sparkle.remove(), 1200);
+  }
+
+  yesBtn.addEventListener('click', ()=> {
+    loveSound.play();
+    for(let i=0;i<30;i++) setTimeout(createSparkle, i*80);
+    document.body.innerHTML = `
+      <div style="text-align:center;padding:20px;color:#d83f87;font-size:1.5em;">
+        <img src="cat-flower.gif" style="max-width:220px; width:80%; height:auto; margin-bottom:20px;" alt="cute cat with flowers">
+        <h1>Yeeey!!Yeyy!Yeyyeyy😌💕</h1>
+        <p>Ovaa amenaerjanik mardy himaaa?? 👀 💕 <br>Yes 😌✨💕</p>
+      </div>
+    `;
+    setInterval(createFlyingHeart, 300);
+  });
+
+  // No button flirty messages
+  const flirtyMessages = ["Vstah es?😏","Lurj?? 🥺","Noric mtacii!! 💕","Dzev chunes sers😌","De lav dee😇","ASA HA!😘"];
+  let msgIndex = 0;
+  noBtn.addEventListener('click', () => {
+    noBtn.textContent = flirtyMessages[msgIndex];
+    msgIndex = (msgIndex + 1) % flirtyMessages.length;
+  });
 });
 </script>
 

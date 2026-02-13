@@ -111,7 +111,10 @@ button {
   transition:transform 0.3s ease, background 0.3s ease;
   font-weight:500;
 }
-#noBtn { background: linear-gradient(45deg,#ff2e63,#ff6b81); }
+#noBtn { 
+  background: linear-gradient(45deg,#ff2e63,#ff6b81); 
+  position:relative; /* stays in container */
+}
 #yesBtn { background: linear-gradient(45deg,#ff4d88,#ff85a2); }
 
 </style>
@@ -161,12 +164,21 @@ function createSparkle() {
   setTimeout(()=> sparkle.remove(), 1200);
 }
 
+// No button flirty messages
+const noBtn = document.getElementById('noBtn');
+const flirtyMessages = ["Vstah es?😏","Lurj?? 🥺","Noric mtacii!! 💕","Dzev chunes sers😌","De lav dee😇","ASA HA!😘"];
+let msgIndex = 0;
+noBtn.addEventListener('click', () => {
+  noBtn.textContent = flirtyMessages[msgIndex];
+  msgIndex = (msgIndex + 1) % flirtyMessages.length;
+});
+
 // Yes button
 const yesBtn = document.getElementById('yesBtn');
 const loveSound = new Audio('love-sound.mp3');
 
 yesBtn.addEventListener('click', ()=> {
-  loveSound.play(); // play mp3
+  loveSound.play();
 
   // sparkles + hearts
   for(let i=0; i<30; i++) setTimeout(createSparkle, i*80);

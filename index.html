@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine Letter 💖</title>
+<title>Be my Valentine, Ser 💖</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+
 <style>
-/* Animate gradient background */
+/* Background */
 @keyframes gradientBG {
   0% { background-position:0% 50% }
   50% { background-position:100% 50% }
@@ -27,38 +28,113 @@ body {
   padding:10px;
 }
 
-/* Flying hearts */
-.flying-heart {
-  position:fixed;
-  pointer-events:none;
-  opacity:1;
+/* Serious text above envelope */
+.serious-text {
+  font-weight:600;
+  font-size:1.6em;
+  color:#d83f87;
+  margin-bottom:25px;
+  text-align:center;
 }
 
-/* Heart float animation */
-@keyframes floatUp {
-  0% { transform: translateY(0) rotate(0deg); opacity:1; }
-  100% { transform: translateY(-600px) rotate(360deg); opacity:0; }
-}
-
-/* Envelope button (first page) */
-.envelope-btn {
-  width:250px;
-  height:150px;
-  background: linear-gradient(45deg,#ff85a2,#ff4d88);
-  border-radius:15px;
+/* Envelope container */
+.envelope-wrapper {
   display:flex;
+  flex-direction:column;
+  align-items:center;
+  cursor:pointer;
+}
+
+/* Envelope body */
+.envelope {
+  position:relative;
+  width:280px;
+  height:180px;
+  background:#fff0f6;
+  border-radius:8px;
+  box-shadow:0 8px 25px rgba(216,63,135,0.15);
+  overflow:hidden;
+}
+
+/* Envelope flap */
+.flap {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#ffd6e7;
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  transform-origin: top;
+  transition: transform 0.8s ease;
+  z-index:2;
+}
+
+/* Letter inside envelope */
+.letter {
+  position:absolute;
+  width:90%;
+  height:85%;
+  background:white;
+  left:5%;
+  top:20%;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+  transition: transform 0.9s ease;
+  z-index:1;
+}
+
+/* Open animation */
+.open .flap {
+  transform: rotateX(180deg);
+}
+.open .letter {
+  transform: translateY(-120px);
+}
+
+/* Open button */
+.open-btn {
+  margin-top:18px;
+  padding:10px 22px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(45deg,#ff4d88,#ff85a2);
+  color:white;
+  font-weight:500;
+  cursor:pointer;
+  font-size:1em;
+}
+
+/* Main wrapper (letter page) */
+.main-wrapper {
+  display:none;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  color:white;
-  font-weight:700;
-  font-size:1.2em;
-  cursor:pointer;
-  box-shadow:0 6px 20px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
+  width:100%;
+  height:100%;
 }
-.envelope-btn:hover { transform: scale(1.05); }
 
-/* Container (opened letter) */
+/* Love note */
+.love-note {
+  text-align:center;
+  margin-bottom:30px;
+}
+.love-note-title {
+  font-weight:700;
+  font-size:2.2em;
+  color:#d83f87;
+  margin-bottom:8px;
+}
+.love-note-subtitle,
+.love-note-text {
+  font-weight:300;
+  font-size:1.2em;
+  color:#e07abf;
+  margin-bottom:6px;
+}
+
+/* Container (Valentine rectangle) */
 .container {
   width:350px;
   padding:30px;
@@ -71,12 +147,15 @@ body {
   text-align:center;
   box-shadow:0 4px 20px rgba(255,255,255,0.2);
 }
+
 h1 {
   font-weight:700;
   color:#d83f87;
   font-size:1.8em;
   margin-bottom:20px;
 }
+
+/* Buttons */
 button {
   padding:12px 25px;
   border:none;
@@ -85,119 +164,161 @@ button {
   cursor:pointer;
   margin:8px;
   color:white;
-  transition:transform 0.3s ease, background 0.3s ease;
   font-weight:500;
+  transition:transform 0.3s ease;
 }
-#noBtn { 
-  background: linear-gradient(45deg,#ff2e63,#ff6b81); 
-  position:relative; 
-}
-#yesBtn { background: linear-gradient(45deg,#ff4d88,#ff85a2); animation: pulse 2s infinite ease-in-out; }
 
-/* Pulse for Yes */
+#yesBtn {
+  background: linear-gradient(45deg,#ff4d88,#ff85a2);
+  animation:pulse 2s infinite ease-in-out;
+}
+#noBtn {
+  background: linear-gradient(45deg,#ff2e63,#ff6b81);
+}
+
 @keyframes pulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.07); }
+  50% { transform: scale(1.06); }
   100% { transform: scale(1); }
 }
 
-/* Love note text */
-.love-note {
-  text-align:center;
-  margin-bottom:30px;
+/* Hearts & sparkles */
+.flying-heart, .sparkle {
+  position:fixed;
+  pointer-events:none;
 }
-.love-note-title { font-weight:700; font-size:2.2em; color:#d83f87; margin-bottom:8px; }
-.love-note-subtitle, .love-note-text { font-weight:300; font-size:1.2em; color:#e07abf; margin-bottom:6px; }
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity:1; }
+  100% { transform: translateY(-600px) rotate(360deg); opacity:0; }
+}
+@keyframes sparkleFade {
+  0% { transform: scale(1); opacity:1; }
+  100% { transform: scale(1.6); opacity:0; }
+}
 
-/* MOBILE ONLY STYLING */
+/* Mobile only */
 @media (max-width:480px){
-  .container { width:90%; padding:20px; max-width:350px; }
-  .love-note-title { font-size:1.6em; }
-  .love-note-subtitle, .love-note-text { font-size:1em; }
-  h1 { font-size:1.4em; }
-  button { font-size:0.95em; padding:10px 20px; }
-  .envelope-btn { width:90%; height:auto; padding:15px; font-size:1.1em; }
+  .container { width:90%; padding:22px; }
+  .love-note-title { font-size:1.7em; }
+  .serious-text { font-size:1.3em; }
 }
 </style>
 </head>
+
 <body>
 
-<!-- First Letter Envelope Page -->
-<div id="letterPage" class="envelope-btn">Open 💌</div>
+<!-- FIRST PAGE (Envelope) -->
+<div id="envelopePage">
+  <div class="serious-text">I have a serious question for you,</div>
+
+  <div class="envelope-wrapper" onclick="openEnvelope()">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="letter"></div>
+    </div>
+    <button class="open-btn">Open 💌</button>
+  </div>
+</div>
+
+<!-- LETTER PAGE (Your original Valentine page) -->
+<div class="main-wrapper" id="letterPage">
+  <div class="love-note">
+    <div class="love-note-title">My love Ani!!💕</div>
+    <div class="love-note-subtitle">I'm so lucky to have you!👀</div>
+    <div class="love-note-text">
+      I couldn’t ask you to be my Valentine in person since I’m sick, so I made this page just for you💖😌
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Will you be my Valentine, Seeer? 👀💕</h1>
+    <button id="yesBtn">Yes!!💕</button>
+    <button id="noBtn">No :(</button>
+  </div>
+</div>
 
 <script>
-// Flying hearts on first page
+const envelope = document.getElementById('envelope');
+const envelopePage = document.getElementById('envelopePage');
+const letterPage = document.getElementById('letterPage');
+
+/* Flying hearts */
 function createFlyingHeart() {
   const heart = document.createElement('div');
   heart.className = 'flying-heart';
   const types = ['💕','💖','💗'];
-  heart.textContent = types[Math.floor(Math.random() * types.length)];
+  heart.textContent = types[Math.floor(Math.random()*types.length)];
   heart.style.left = Math.random()*window.innerWidth + 'px';
   heart.style.top = window.innerHeight + 'px';
   heart.style.fontSize = (16 + Math.random()*24) + 'px';
-  heart.style.animation = 'floatUp ' + (4 + Math.random()*3) + 's linear forwards';
+  heart.style.animation = 'floatUp 4s linear forwards';
   document.body.appendChild(heart);
-  setTimeout(()=> heart.remove(), 5000);
+  setTimeout(()=>heart.remove(),4000);
 }
-setInterval(createFlyingHeart, 350);
 
-// Click envelope to open main letter page
-document.getElementById('letterPage').addEventListener('click', ()=> {
+/* Sparkles */
+function createSparkle() {
+  const sparkle = document.createElement('div');
+  sparkle.className = 'sparkle';
+  sparkle.textContent = '✨';
+  sparkle.style.left = Math.random()*window.innerWidth + 'px';
+  sparkle.style.top = Math.random()*window.innerHeight + 'px';
+  sparkle.style.fontSize = (10 + Math.random()*18) + 'px';
+  sparkle.style.animation = 'sparkleFade 1.2s ease-out forwards';
+  document.body.appendChild(sparkle);
+  setTimeout(()=>sparkle.remove(),1200);
+}
+
+/* Open envelope animation */
+function openEnvelope(){
+  envelope.classList.add('open');
+
+  // hearts from envelope
+  for(let i=0;i<12;i++){
+    setTimeout(createFlyingHeart, i*120);
+  }
+
+  setTimeout(()=>{
+    envelopePage.style.display = "none";
+    letterPage.style.display = "flex";
+    setInterval(createFlyingHeart, 350);
+  }, 900);
+}
+
+/* No button flirty text */
+const noBtn = document.getElementById('noBtn');
+const flirtyMessages = [
+  "Vstah es?😏",
+  "Lurj?? 🥺",
+  "Noric mtacii!! 💕",
+  "Dzev chunes sers😌",
+  "De lav dee😇",
+  "ASA HA!😘"
+];
+let msgIndex = 0;
+noBtn.addEventListener('click', () => {
+  noBtn.textContent = flirtyMessages[msgIndex];
+  msgIndex = (msgIndex + 1) % flirtyMessages.length;
+});
+
+/* Yes button (NO floating page now) */
+const yesBtn = document.getElementById('yesBtn');
+const loveSound = new Audio('love-sound.mp3');
+
+yesBtn.addEventListener('click', ()=> {
+  loveSound.play();
+
+  for(let i=0;i<30;i++){
+    setTimeout(createSparkle, i*80);
+  }
+
   document.body.innerHTML = `
-    <div class="main-wrapper">
-      <div class="love-note">
-        <div class="love-note-title">My love Ani!!💕</div>
-        <div class="love-note-subtitle">I'm so lucky to have you!👀</div>
-        <div class="love-note-text">I couldn’t ask you to be my Valentine in person since I’m sick, so I made this page just for you💖😌</div>
-      </div>
-      <div class="container">
-        <h1>Will you be my Valentine, Seeer? 👀💕</h1>
-        <button id="yesBtn">Yes!!💕</button>
-        <button id="noBtn">No :(</button>
-      </div>
+    <div style="text-align:center;padding:20px;color:#d83f87;font-size:1.5em;">
+      <img src="cat-flower.gif" style="max-width:180px;width:70%;height:auto;margin-bottom:20px;">
+      <h1>Yeeey!!Yeyy!Yeyyeyy😌💕</h1>
+      <p>Ovaa amenaerjanik mardy himaaa?? 👀 💕 <br>Yes 😌✨💕</p>
     </div>
   `;
-
-  // Re-add Yes & No button behavior
-  const yesBtn = document.getElementById('yesBtn');
-  const noBtn = document.getElementById('noBtn');
-  const loveSound = new Audio('love-sound.mp3');
-
-  // Flirty No messages
-  const flirtyMessages = ["Vstah es?😏","Lurj?? 🥺","Noric mtacii!! 💕","Dzev chunes sers😌","De lav dee😇","ASA HA!😘"];
-  let msgIndex = 0;
-  noBtn.addEventListener('click', () => {
-    noBtn.textContent = flirtyMessages[msgIndex];
-    msgIndex = (msgIndex + 1) % flirtyMessages.length;
-  });
-
-  // Hearts and celebration only after Yes click
-  yesBtn.addEventListener('click', ()=> {
-    loveSound.play();
-    for(let i=0;i<30;i++){
-      setTimeout(()=>{
-        const sparkle = document.createElement('div');
-        sparkle.className = 'flying-heart';
-        const types = ['💕','💖','💗','✨'];
-        sparkle.textContent = types[Math.floor(Math.random()*types.length)];
-        sparkle.style.left = Math.random()*window.innerWidth+'px';
-        sparkle.style.top = window.innerHeight+'px';
-        sparkle.style.fontSize = (10+Math.random()*24)+'px';
-        sparkle.style.animation = 'floatUp ' + (3+Math.random()*2) + 's linear forwards';
-        document.body.appendChild(sparkle);
-        setTimeout(()=> sparkle.remove(),4000);
-      }, i*80);
-    }
-
-    // Celebration page (no floating for container)
-    document.body.innerHTML = `
-      <div style="text-align:center;padding:20px;color:#d83f87;font-size:1.5em;">
-        <img src="cat-flower.gif" style="max-width:220px; width:80%; height:auto; margin-bottom:20px;" alt="cute cat with flowers">
-        <h1>Yeeey!!Yeyy!Yeyyeyy😌💕</h1>
-        <p>Ovaa amenaerjanik mardy himaaa?? 👀 💕 <br>Yes 😌✨💕</p>
-      </div>
-    `;
-  });
 });
 </script>
 

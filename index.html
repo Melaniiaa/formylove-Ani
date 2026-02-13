@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Be my Valentine, Ser 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 /* Animate live gradient background */
 @keyframes gradientBG {
@@ -16,11 +16,11 @@
 body {
   margin:0;
   height:100vh;
-  font-family:'Archivo', sans-serif; /* Medium weight for body text */
+  font-family:'Montserrat', sans-serif; 
   display:flex;
   flex-direction: column;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-start; /* align items from top */
   background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffd1ff, #ffdde1);
   background-size:400% 400%;
   animation: gradientBG 15s ease infinite;
@@ -29,37 +29,35 @@ body {
   padding: 20px;
 }
 
-/* Top love note */
+/* Special love note */
 .love-note {
-  position: absolute;
-  top: 20px;
-  width: 100%;
+  max-width: 600px;
   text-align: center;
+  margin-bottom: 40px; /* space between top note and rectangle */
   z-index: 10;
-  pointer-events: none;
 }
 
 .love-note-title {
-  font-family: 'Archivo', sans-serif;
-  font-weight: 900;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700; /* Bold */
   font-size: 2.2em;
-  color: #d83f87;
-  margin-bottom: 5px;
+  color: #d83f87; /* dark pink */
+  margin-bottom: 8px;
 }
 
 .love-note-subtitle {
-  font-family: 'Archivo', sans-serif;
-  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500; /* Medium */
   font-size: 1.2em;
-  color: #e07abf;
-  margin-bottom: 5px;
+  color: #e07abf; /* lighter pink */
+  margin-bottom: 6px;
 }
 
 .love-note-text {
-  font-family: 'Archivo', sans-serif;
-  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300; /* Light */
   font-size: 1em;
-  color: #f0a3d1;
+  color: #f0a3d1; /* very light pink */
 }
 
 /* Flying hearts in background */
@@ -89,10 +87,10 @@ body {
   box-shadow: 0 4px 20px rgba(255,255,255,0.2);
 }
 
-/* Text */
+/* Main header */
 h1 {
-  font-family:'Archivo', sans-serif;
-  font-weight: 900;
+  font-family:'Montserrat', sans-serif;
+  font-weight: 700; /* Bold */
   color:#d83f87;
   font-size:1.8em;
   margin-bottom:20px;
@@ -108,8 +106,8 @@ button {
   margin:8px;
   color:white;
   transition:transform 0.3s ease, background 0.3s ease;
-  font-family:'Archivo', sans-serif;
-  font-weight:500;
+  font-family:'Montserrat', sans-serif;
+  font-weight:500; /* Medium */
 }
 
 #yesBtn { 
@@ -125,7 +123,7 @@ button {
 </head>
 <body>
 
-<!-- Top Love Note -->
+<!-- Special Love Note -->
 <div class="love-note">
   <div class="love-note-title">My love Ani</div>
   <div class="love-note-subtitle">I'm so lucky to have you</div>

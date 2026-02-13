@@ -12,6 +12,7 @@
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
+
 body {
   margin:0;
   height:100vh;
@@ -30,12 +31,35 @@ body {
 
 /* Top love note */
 .love-note {
-  max-width: 600px;
+  position: absolute;
+  top: 20px;
+  width: 100%;
   text-align: center;
-  color: #d83f87; /* Dark pink */
+  z-index: 10;
+  pointer-events: none;
+}
+
+.love-note-title {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 900;
+  font-size: 2.2em;
+  color: #d83f87;
+  margin-bottom: 5px;
+}
+
+.love-note-subtitle {
+  font-family: 'Archivo', sans-serif;
   font-weight: 500;
-  margin-bottom: 30px;
+  font-size: 1.2em;
+  color: #e07abf;
+  margin-bottom: 5px;
+}
+
+.love-note-text {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 500;
   font-size: 1em;
+  color: #f0a3d1;
 }
 
 /* Flying hearts in background */
@@ -45,6 +69,7 @@ body {
   animation: floatUp 5s linear forwards;
   pointer-events:none;
 }
+
 @keyframes floatUp {
   0%{transform:translateY(0) scale(1); opacity:1;}
   100%{transform:translateY(-600px) scale(1.5); opacity:0;}
@@ -61,14 +86,14 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(255,255,255,0.2); /* soft glow instead of black shadow */
+  box-shadow: 0 4px 20px rgba(255,255,255,0.2);
 }
 
 /* Text */
 h1 {
   font-family:'Archivo', sans-serif;
-  font-weight: 900; /* Bold */
-  color:#d83f87; /* Dark pink */
+  font-weight: 900;
+  color:#d83f87;
   font-size:1.8em;
   margin-bottom:20px;
 }
@@ -84,23 +109,30 @@ button {
   color:white;
   transition:transform 0.3s ease, background 0.3s ease;
   font-family:'Archivo', sans-serif;
-  font-weight:500; /* Medium */
+  font-weight:500;
 }
+
 #yesBtn { 
   background: linear-gradient(45deg,#ff4d88,#ff85a2); 
 }
 #yesBtn:hover { transform:scale(1.1); }
+
 #noBtn { 
   background: linear-gradient(45deg,#ff2e63,#ff6b81); 
+  position: relative; /* stays in place */
 }
 </style>
 </head>
 <body>
 
+<!-- Top Love Note -->
 <div class="love-note">
-My love Ani, I'm so lucky to have you. I couldn’t ask you to be my Valentine in person since I’m sick, so I made this Valentine just for you.
+  <div class="love-note-title">My love Ani</div>
+  <div class="love-note-subtitle">I'm so lucky to have you</div>
+  <div class="love-note-text">I couldn’t ask you to be my Valentine in person since I’m sick, so I made this Valentine just for you.</div>
 </div>
 
+<!-- Rectangle Container -->
 <div class="container">
   <h1 id="title">Will you be my Valentine, Seeer? 👀💕 </h1>
   <button id="yesBtn">Yes!!💕</button>
@@ -121,29 +153,19 @@ function createFlyingHeart(){
 }
 setInterval(createFlyingHeart, 400);
 
-// --- Flirty No messages on click ---
+// --- Flirty No button ---
 const noBtn = document.getElementById('noBtn');
-const yesBtn = document.getElementById('yesBtn');
-
 const flirtyMessages = ["Vstah es?😏","Lurj?? 🥺","Noric mtacii!! 💕","Dzev chunes sers😌","De lav dee😇","ASA HA!😘"];
 let msgIndex = 0;
 
 noBtn.addEventListener('click', () => {
   noBtn.textContent = flirtyMessages[msgIndex];
-  msgIndex = (msgIndex+1) % flirtyMessages.length;
-
-  // Move button randomly but keep it within viewport
-  const padding = 20; // margin from edges
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-  noBtn.style.position = 'absolute';
-  noBtn.style.left = x+'px';
-  noBtn.style.top = y+'px';
+  msgIndex = (msgIndex + 1) % flirtyMessages.length;
 });
 
-// --- Hearts on Yes button click ---
+// --- Yes button hearts ---
+const yesBtn = document.getElementById('yesBtn');
+
 function createHeart() {
   const heart = document.createElement('div');
   heart.className = 'flying-heart';

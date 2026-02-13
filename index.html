@@ -40,36 +40,23 @@ body {
   100% { transform: translateY(-600px) rotate(360deg); opacity:0; }
 }
 
-/* Letter Page */
-.letter-wrapper {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  cursor:pointer;
-}
-.letter-box {
-  width:300px;
-  height:200px;
-  background:rgba(255,255,255,0.4);
-  backdrop-filter:blur(10px);
-  border-radius:20px;
+/* Envelope button (first page) */
+.envelope-btn {
+  width:250px;
+  height:150px;
+  background: linear-gradient(45deg,#ff85a2,#ff4d88);
+  border-radius:15px;
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:0 6px 20px rgba(0,0,0,0.2);
-  padding:20px;
-  transition: transform 0.4s ease;
-}
-.letter-box:hover {
-  transform: scale(1.05);
-}
-.letter-text {
-  font-weight:500;
+  color:white;
+  font-weight:700;
   font-size:1.2em;
-  color:#d83f87;
+  cursor:pointer;
+  box-shadow:0 6px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
 }
+.envelope-btn:hover { transform: scale(1.05); }
 
 /* Container (opened letter) */
 .container {
@@ -129,21 +116,17 @@ button {
   .love-note-subtitle, .love-note-text { font-size:1em; }
   h1 { font-size:1.4em; }
   button { font-size:0.95em; padding:10px 20px; }
-  .letter-box { width:90%; height:auto; padding:15px; }
+  .envelope-btn { width:90%; height:auto; padding:15px; font-size:1.1em; }
 }
 </style>
 </head>
 <body>
 
-<!-- Letter Page -->
-<div class="letter-wrapper" id="letterPage">
-  <div class="letter-box">
-    <div class="letter-text">I have a serious question for you...💌<br>Click to open 💖</div>
-  </div>
-</div>
+<!-- First Letter Envelope Page -->
+<div id="letterPage" class="envelope-btn">Open 💌</div>
 
 <script>
-// Flying hearts
+// Flying hearts on first page
 function createFlyingHeart() {
   const heart = document.createElement('div');
   heart.className = 'flying-heart';
@@ -158,8 +141,8 @@ function createFlyingHeart() {
 }
 setInterval(createFlyingHeart, 350);
 
-// Click letter to open main page
-document.getElementById('letterPage').addEventListener('click', () => {
+// Click envelope to open main letter page
+document.getElementById('letterPage').addEventListener('click', ()=> {
   document.body.innerHTML = `
     <div class="main-wrapper">
       <div class="love-note">
@@ -175,27 +158,38 @@ document.getElementById('letterPage').addEventListener('click', () => {
     </div>
   `;
 
-  // Re-add all JS behaviors for new page
+  // Re-add Yes & No button behavior
   const yesBtn = document.getElementById('yesBtn');
   const noBtn = document.getElementById('noBtn');
   const loveSound = new Audio('love-sound.mp3');
 
-  // Hearts & sparkles on Yes click
-  function createSparkle() {
-    const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
-    sparkle.textContent = '✨';
-    sparkle.style.left = Math.random()*window.innerWidth + 'px';
-    sparkle.style.top = Math.random()*window.innerHeight + 'px';
-    sparkle.style.fontSize = (10 + Math.random()*20) + 'px';
-    sparkle.style.animation = 'floatUp 1.2s ease-out forwards';
-    document.body.appendChild(sparkle);
-    setTimeout(()=> sparkle.remove(), 1200);
-  }
+  // Flirty No messages
+  const flirtyMessages = ["Vstah es?😏","Lurj?? 🥺","Noric mtacii!! 💕","Dzev chunes sers😌","De lav dee😇","ASA HA!😘"];
+  let msgIndex = 0;
+  noBtn.addEventListener('click', () => {
+    noBtn.textContent = flirtyMessages[msgIndex];
+    msgIndex = (msgIndex + 1) % flirtyMessages.length;
+  });
 
+  // Hearts and celebration only after Yes click
   yesBtn.addEventListener('click', ()=> {
     loveSound.play();
-    for(let i=0;i<30;i++) setTimeout(createSparkle, i*80);
+    for(let i=0;i<30;i++){
+      setTimeout(()=>{
+        const sparkle = document.createElement('div');
+        sparkle.className = 'flying-heart';
+        const types = ['💕','💖','💗','✨'];
+        sparkle.textContent = types[Math.floor(Math.random()*types.length)];
+        sparkle.style.left = Math.random()*window.innerWidth+'px';
+        sparkle.style.top = window.innerHeight+'px';
+        sparkle.style.fontSize = (10+Math.random()*24)+'px';
+        sparkle.style.animation = 'floatUp ' + (3+Math.random()*2) + 's linear forwards';
+        document.body.appendChild(sparkle);
+        setTimeout(()=> sparkle.remove(),4000);
+      }, i*80);
+    }
+
+    // Celebration page (no floating for container)
     document.body.innerHTML = `
       <div style="text-align:center;padding:20px;color:#d83f87;font-size:1.5em;">
         <img src="cat-flower.gif" style="max-width:220px; width:80%; height:auto; margin-bottom:20px;" alt="cute cat with flowers">
@@ -203,15 +197,6 @@ document.getElementById('letterPage').addEventListener('click', () => {
         <p>Ovaa amenaerjanik mardy himaaa?? 👀 💕 <br>Yes 😌✨💕</p>
       </div>
     `;
-    setInterval(createFlyingHeart, 300);
-  });
-
-  // No button flirty messages
-  const flirtyMessages = ["Vstah es?😏","Lurj?? 🥺","Noric mtacii!! 💕","Dzev chunes sers😌","De lav dee😇","ASA HA!😘"];
-  let msgIndex = 0;
-  noBtn.addEventListener('click', () => {
-    noBtn.textContent = flirtyMessages[msgIndex];
-    msgIndex = (msgIndex + 1) % flirtyMessages.length;
   });
 });
 </script>

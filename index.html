@@ -24,6 +24,7 @@ body {
   animation: gradientBG 15s ease infinite;
   overflow:hidden;
   flex-direction:column;
+  padding:10px;
 }
 
 /* Yes button pulse */
@@ -41,25 +42,27 @@ body {
   display:flex;
   flex-direction:column;
   align-items:center;
+  width:100%;
+  max-width:400px;
 }
 
 /* Love note */
 .love-note {
   text-align:center;
-  margin-bottom:30px;
+  margin-bottom:20px;
 }
 .love-note-title {
   font-weight:700;
-  font-size:2.2em;
+  font-size:2em;
   color:#d83f87;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 .love-note-subtitle,
 .love-note-text {
   font-weight:300;
-  font-size:1.2em;
+  font-size:1.1em;
   color:#e07abf;
-  margin-bottom:6px;
+  margin-bottom:4px;
 }
 
 /* Hearts + sparkles */
@@ -83,11 +86,12 @@ body {
 
 /* Container */
 .container {
-  width:350px;
-  padding:30px;
+  width:90%;
+  max-width:350px;
+  padding:20px;
   background:rgba(255,255,255,0.35);
   backdrop-filter:blur(10px);
-  border-radius:25px;
+  border-radius:20px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -97,8 +101,8 @@ body {
 h1 {
   font-weight:700;
   color:#d83f87;
-  font-size:1.8em;
-  margin-bottom:20px;
+  font-size:1.6em;
+  margin-bottom:15px;
 }
 button {
   padding:12px 25px;
@@ -106,7 +110,7 @@ button {
   border-radius:30px;
   font-size:1em;
   cursor:pointer;
-  margin:8px;
+  margin:6px;
   color:white;
   transition:transform 0.3s ease, background 0.3s ease;
   font-weight:500;
@@ -117,6 +121,13 @@ button {
 }
 #yesBtn { background: linear-gradient(45deg,#ff4d88,#ff85a2); }
 
+/* Responsive text scaling */
+@media (max-width: 400px) {
+  .love-note-title { font-size:1.6em; }
+  .love-note-subtitle, .love-note-text { font-size:1em; }
+  h1 { font-size:1.4em; }
+  button { font-size:0.95em; padding:10px 20px; }
+}
 </style>
 </head>
 <body>
@@ -184,8 +195,8 @@ yesBtn.addEventListener('click', ()=> {
   for(let i=0; i<30; i++) setTimeout(createSparkle, i*80);
 
   document.body.innerHTML = `
-    <div style="text-align:center;padding:40px;color:#d83f87;font-size:1.5em;">
-      <img src="cat-flower.gif" style="max-width:280px;margin-bottom:20px;" alt="cute cat with flowers"> 
+    <div style="text-align:center;padding:20px;color:#d83f87;font-size:1.5em;">
+      <img src="cat-flower.gif" style="max-width:90%;height:auto;margin-bottom:20px;" alt="cute cat with flowers"> 
       <h1>Ayoooo!!! 💕</h1>
       <p>Ovaa amenaerjanik mardy himaaa?? 👀 💕 <br>Yes 😌✨💕</p>
     </div>`;

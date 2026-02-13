@@ -16,29 +16,31 @@
 body {
   margin:0;
   height:100vh;
-  font-family:'Montserrat', sans-serif; 
+  font-family:'Montserrat', sans-serif;
   display:flex;
-  flex-direction: column;
-  align-items:center;
-  justify-content:flex-start; /* align items from top */
+  justify-content:center;
+  align-items:center; /* vertical & horizontal centering */
   background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffd1ff, #ffdde1);
   background-size:400% 400%;
   animation: gradientBG 15s ease infinite;
   overflow:hidden;
-  position:relative;
-  padding: 20px;
+  flex-direction: column;
+}
+
+/* Wrapper to hold note + rectangle container */
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Special love note */
 .love-note {
-  max-width: 600px;
   text-align: center;
-  margin-bottom: 40px; /* space between top note and rectangle */
-  z-index: 10;
+  margin-bottom: 30px; /* space between note and container */
 }
 
 .love-note-title {
-  font-family: 'Montserrat', sans-serif;
   font-weight: 700; /* Bold */
   font-size: 2.2em;
   color: #d83f87; /* dark pink */
@@ -46,7 +48,6 @@ body {
 }
 
 .love-note-subtitle {
-  font-family: 'Montserrat', sans-serif;
   font-weight: 500; /* Medium */
   font-size: 1.2em;
   color: #e07abf; /* lighter pink */
@@ -54,13 +55,12 @@ body {
 }
 
 .love-note-text {
-  font-family: 'Montserrat', sans-serif;
   font-weight: 300; /* Light */
   font-size: 1em;
   color: #f0a3d1; /* very light pink */
 }
 
-/* Flying hearts in background */
+/* Flying hearts */
 .flying-heart {
   position:fixed;
   font-size:24px;
@@ -73,7 +73,7 @@ body {
   100%{transform:translateY(-600px) scale(1.5); opacity:0;}
 }
 
-/* Rectangular container */
+/* Rectangle container */
 .container {
   width: 350px;
   padding: 30px;
@@ -89,7 +89,6 @@ body {
 
 /* Main header */
 h1 {
-  font-family:'Montserrat', sans-serif;
   font-weight: 700; /* Bold */
   color:#d83f87;
   font-size:1.8em;
@@ -106,7 +105,6 @@ button {
   margin:8px;
   color:white;
   transition:transform 0.3s ease, background 0.3s ease;
-  font-family:'Montserrat', sans-serif;
   font-weight:500; /* Medium */
 }
 
@@ -117,24 +115,26 @@ button {
 
 #noBtn { 
   background: linear-gradient(45deg,#ff2e63,#ff6b81); 
-  position: relative; /* stays in place */
+  position: relative; /* fixed in place inside container */
 }
 </style>
 </head>
 <body>
 
-<!-- Special Love Note -->
-<div class="love-note">
-  <div class="love-note-title">My love Ani</div>
-  <div class="love-note-subtitle">I'm so lucky to have you</div>
-  <div class="love-note-text">I couldn’t ask you to be my Valentine in person since I’m sick, so I made this Valentine just for you.</div>
-</div>
+<div class="main-wrapper">
+  <!-- Special Love Note -->
+  <div class="love-note">
+    <div class="love-note-title">My love Ani</div>
+    <div class="love-note-subtitle">I'm so lucky to have you</div>
+    <div class="love-note-text">I couldn’t ask you to be my Valentine in person since I’m sick, so I made this Valentine just for you.</div>
+  </div>
 
-<!-- Rectangle Container -->
-<div class="container">
-  <h1 id="title">Will you be my Valentine, Seeer? 👀💕 </h1>
-  <button id="yesBtn">Yes!!💕</button>
-  <button id="noBtn">No :(</button>
+  <!-- Rectangle Container -->
+  <div class="container">
+    <h1 id="title">Will you be my Valentine, Seeer? 👀💕 </h1>
+    <button id="yesBtn">Yes!!💕</button>
+    <button id="noBtn">No :(</button>
+  </div>
 </div>
 
 <script>

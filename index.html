@@ -3,128 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will you be my Valentine, Seer? 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<title>Will you be my Valentine, Ani? 💖</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-body { height:100vh; display:flex; justify-content:center; align-items:center;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffd1ff, #ffdde1);
-      background-size:400% 400%; animation: gradient 12s ease infinite; overflow:hidden; }
-@keyframes gradient { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
-
-.container { backdrop-filter: blur(20px); background: rgba(255,255,255,0.25);
-            padding:50px 30px; border-radius:30px; box-shadow:0 10px 40px rgba(0,0,0,0.2);
-            text-align:center; max-width:90%; width:420px; }
-
-h1 { font-family:'Pacifico', cursive; font-size:2.5em; color:#fff; margin-bottom:30px;
-     text-shadow:2px 4px 15px rgba(0,0,0,0.2); min-height:60px; }
-
-.buttons { position:relative; display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
-
-button { padding:15px 28px; font-size:1.1em; border:none; border-radius:50px;
-         cursor:pointer; transition:all 0.3s ease; color:white; box-shadow:0 6px 20px rgba(0,0,0,0.2);
-         white-space:nowrap; }
-
-#yesBtn { background:linear-gradient(45deg,#ff4d88,#ff85a2); }
-#yesBtn:hover { transform:scale(1.12); box-shadow:0 10px 25px rgba(0,0,0,0.3); }
-
-#noBtn { background:linear-gradient(45deg,#ff2e63,#ff6b81); position:absolute; min-width:140px; }
-
-.heart { position:fixed; font-size:24px; animation: floatUp 4s linear forwards; pointer-events:none; }
-
-@keyframes floatUp { 0%{transform:translateY(0) scale(1); opacity:1;} 100%{transform:translateY(-500px) scale(1.5); opacity:0;} }
-
-.final-screen { text-align:center; color:white; animation:fadeIn 1.5s ease; padding:20px; }
-@keyframes fadeIn { from{opacity:0; transform:scale(0.9);} to{opacity:1; transform:scale(1);} }
-.final-screen h1 { font-size:3em; margin-bottom:20px; }
-.final-screen p { font-size:1.4em; line-height:1.6; }
-
+body {
+  margin:0; padding:0;
+  font-family: sans-serif;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  overflow:hidden;
+}
+.container {
+  text-align:center;
+  background: rgba(255,255,255,0.2);
+  padding:50px;
+  border-radius:20px;
+  backdrop-filter: blur(15px);
+}
+h1 {
+  color:white;
+  font-size:2em;
+  margin-bottom:30px;
+}
+button {
+  padding:15px 30px;
+  font-size:1em;
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+  margin:10px;
+}
+#yesBtn { background:#ff4d88; color:white; }
+#noBtn { background:#ff2e63; color:white; position:relative; }
+.heart {
+  position:fixed;
+  font-size:24px;
+  animation: floatUp 4s linear forwards;
+  pointer-events:none;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity:1; }
+  100% { transform: translateY(-500px); opacity:0; }
+}
 </style>
 </head>
 <body>
-
 <div class="container">
-  <h1 id="title"></h1>
-  <div class="buttons">
-    <button id="yesBtn">Yes!!</button>
-    <button id="noBtn">No :( </button>
-  </div>
+  <h1 id="title">Will you be my Valentine, Ani? 💌</h1>
+  <button id="yesBtn">Yes ❤️</button>
+  <button id="noBtn">No 😢</button>
 </div>
 
 <script>
-// Animated typing for Ani's name
-const title = document.getElementById('title');
-const message = "Will you be my Valentine, Ani? 💌";
-let index = 0;
-
-function typeWriter() {
-  if(index < message.length){
-    title.innerHTML += message.charAt(index);
-    index++;
-    setTimeout(typeWriter, 100); // typing speed
-  }
-}
-typeWriter();
-
-// Flirty No button
+// No button moves and flirts
 const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 
-const flirtyMessages = [
-  "Vstah es? 😏","Lurj kyaanq?🥺","Think again 💕","Dzev chka",
-  "Pleasee love","Just say yes!!","Don’t break my heart 💔",
-  "ANI!!","Pleaseee? 🥹","Last chance..."
-];
+const messages = ["Are you sure? 😏","Really?? 🥺","Think again 💕","You can't resist me 😌"];
+let index = 0;
 
-let messageIndex = 0;
-let scale = 1;
+noBtn.addEventListener('mouseover', () => {
+  noBtn.textContent = messages[index];
+  index = (index + 1) % messages.length;
 
-function moveNoButton() {
-  noBtn.textContent = flirtyMessages[messageIndex];
-  messageIndex = (messageIndex + 1) % flirtyMessages.length;
-
-  scale -= 0.08; if(scale<0.4) scale=0.4;
-  noBtn.style.transform = scale(${scale});
-
-  const padding = 20;
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-  const x = Math.random()*maxX;
-  const y = Math.random()*maxY;
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
-noBtn.addEventListener("mouseover", moveNoButton);
-noBtn.addEventListener("click", moveNoButton); // for mobile tap
+  // move button
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 50);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50);
+  noBtn.style.position = 'absolute';
+  noBtn.style.left = x + 'px';
+  noBtn.style.top = y + 'px';
+});
 
 // Hearts on Yes
 function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.textContent = "💖";
-  heart.style.left = Math.random() * window.innerWidth + "px";
-  heart.style.top = window.innerHeight + "px";
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.textContent = '💖';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.top = window.innerHeight + 'px';
   document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 4000);
+  setTimeout(()=>heart.remove(),4000);
 }
 
-// Yes button click
-yesBtn.addEventListener("click", ()=>{
+yesBtn.addEventListener('click', () => {
   document.body.innerHTML = `
-  <div class="final-screen">
-    <h1>YAY!!! 💖</h1>
-    <p>
-      Yay!!!🥹<br><br>
-      I promise to make you smile, laugh,<br>
-      and feel loved every single day ✨💕
-    </p>
-  </div>
+    <div style="text-align:center;color:white;padding:50px;font-size:1.5em;">
+      <h1>YAY!!! 💖</h1>
+      <p>You just made me the happiest person alive 🥹<br>I promise to make you smile and feel loved every day ✨💕</p>
+    </div>
   `;
   setInterval(createHeart, 250);
 });
 </script>
-
 </body>
 </html>

@@ -31,18 +31,19 @@ body {
 /* Serious text above envelope */
 .serious-text {
   font-weight:600;
-  font-size:1.6em;
+  font-size:1.7em;
   color:#d83f87;
   margin-bottom:25px;
   text-align:center;
 }
 
-/* Envelope container */
+/* Envelope wrapper */
 .envelope-wrapper {
   display:flex;
   flex-direction:column;
   align-items:center;
   cursor:pointer;
+  user-select:none;
 }
 
 /* Envelope body */
@@ -51,9 +52,27 @@ body {
   width:280px;
   height:180px;
   background:#fff0f6;
-  border-radius:8px;
-  box-shadow:0 8px 25px rgba(216,63,135,0.15);
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(216,63,135,0.18);
   overflow:hidden;
+}
+
+/* Cute heart on envelope */
+.envelope-heart {
+  position:absolute;
+  top:55%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  font-size:32px;
+  z-index:3;
+  pointer-events:none;
+  animation: heartBeat 2s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0% { transform:translate(-50%, -50%) scale(1); }
+  50% { transform:translate(-50%, -50%) scale(1.12); }
+  100% { transform:translate(-50%, -50%) scale(1); }
 }
 
 /* Envelope flap */
@@ -66,11 +85,11 @@ body {
   background:#ffd6e7;
   clip-path: polygon(0 0, 50% 60%, 100% 0);
   transform-origin: top;
-  transition: transform 0.8s ease;
+  transition: transform 0.9s ease;
   z-index:2;
 }
 
-/* Letter inside envelope */
+/* Letter inside */
 .letter {
   position:absolute;
   width:90%;
@@ -78,9 +97,9 @@ body {
   background:white;
   left:5%;
   top:20%;
-  border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.1);
-  transition: transform 0.9s ease;
+  border-radius:14px;
+  box-shadow:0 8px 22px rgba(0,0,0,0.12);
+  transition: transform 1s ease;
   z-index:1;
 }
 
@@ -95,7 +114,7 @@ body {
 /* Open button */
 .open-btn {
   margin-top:18px;
-  padding:10px 22px;
+  padding:10px 24px;
   border:none;
   border-radius:25px;
   background:linear-gradient(45deg,#ff4d88,#ff85a2);
@@ -103,9 +122,13 @@ body {
   font-weight:500;
   cursor:pointer;
   font-size:1em;
+  transition:transform 0.2s ease;
+}
+.open-btn:hover {
+  transform:scale(1.05);
 }
 
-/* Main wrapper (letter page) */
+/* Main Valentine page */
 .main-wrapper {
   display:none;
   flex-direction:column;
@@ -134,18 +157,18 @@ body {
   margin-bottom:6px;
 }
 
-/* Container (Valentine rectangle) */
+/* Valentine container */
 .container {
   width:350px;
   padding:30px;
   background:rgba(255,255,255,0.35);
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(12px);
   border-radius:25px;
   display:flex;
   flex-direction:column;
   align-items:center;
   text-align:center;
-  box-shadow:0 4px 20px rgba(255,255,255,0.2);
+  box-shadow:0 6px 24px rgba(255,255,255,0.25);
 }
 
 h1 {
@@ -196,11 +219,12 @@ button {
   100% { transform: scale(1.6); opacity:0; }
 }
 
-/* Mobile only */
+/* Mobile optimization (keeps desktop unchanged) */
 @media (max-width:480px){
   .container { width:90%; padding:22px; }
   .love-note-title { font-size:1.7em; }
-  .serious-text { font-size:1.3em; }
+  .serious-text { font-size:1.35em; }
+  .envelope { width:240px; height:160px; }
 }
 </style>
 </head>
@@ -209,18 +233,19 @@ button {
 
 <!-- FIRST PAGE (Envelope) -->
 <div id="envelopePage">
-  <div class="serious-text">I have a serious question for you,</div>
+  <div class="serious-text">I have a serious question for you 🥺💌</div>
 
   <div class="envelope-wrapper" onclick="openEnvelope()">
     <div class="envelope" id="envelope">
       <div class="flap"></div>
       <div class="letter"></div>
+      <div class="envelope-heart">💖</div>
     </div>
     <button class="open-btn">Open 💌</button>
   </div>
 </div>
 
-<!-- LETTER PAGE (Your original Valentine page) -->
+<!-- LETTER PAGE -->
 <div class="main-wrapper" id="letterPage">
   <div class="love-note">
     <div class="love-note-title">My love Ani!!💕</div>
@@ -269,11 +294,10 @@ function createSparkle() {
   setTimeout(()=>sparkle.remove(),1200);
 }
 
-/* Open envelope animation */
+/* Open envelope */
 function openEnvelope(){
   envelope.classList.add('open');
 
-  // hearts from envelope
   for(let i=0;i<12;i++){
     setTimeout(createFlyingHeart, i*120);
   }
@@ -301,7 +325,7 @@ noBtn.addEventListener('click', () => {
   msgIndex = (msgIndex + 1) % flirtyMessages.length;
 });
 
-/* Yes button (NO floating page now) */
+/* Yes button (stable page, sound + gif + sparkles) */
 const yesBtn = document.getElementById('yesBtn');
 const loveSound = new Audio('love-sound.mp3');
 
